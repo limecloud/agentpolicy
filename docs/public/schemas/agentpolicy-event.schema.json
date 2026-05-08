@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://limecloud.github.io/agentpolicy/schemas/agentpolicy-event.schema.json",
+  "title": "Agent Policy Event",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "event_id",
+    "type",
+    "timestamp"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "event_id": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "policy.decision.created",
+        "policy.decision.updated",
+        "policy.approval.requested",
+        "policy.approval.responded",
+        "policy.grant.issued",
+        "policy.grant.revoked",
+        "policy.waiver.created",
+        "policy.redaction.required",
+        "policy.retention.required",
+        "policy.trace.linked",
+        "policy.warning",
+        "policy.error"
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "decision_id": {
+      "type": "string"
+    },
+    "approval_id": {
+      "type": "string"
+    },
+    "grant_id": {
+      "type": "string"
+    },
+    "waiver_id": {
+      "type": "string"
+    },
+    "trace_id": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "refs": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": true
+}

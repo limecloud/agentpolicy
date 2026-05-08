@@ -1,0 +1,232 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://limecloud.github.io/agentpolicy/schemas/agentpolicy-decision.schema.json",
+  "title": "Agent Policy Decision",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "decision_id",
+    "evaluated_at",
+    "subject",
+    "action",
+    "resource",
+    "context",
+    "scope",
+    "result",
+    "reason_codes"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "decision_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "policy_set_id": {
+      "type": "string"
+    },
+    "policy_version": {
+      "type": "string"
+    },
+    "evaluated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "subject": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "refs": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "action": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "refs": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "resource": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "refs": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "scope": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://limecloud.github.io/agentpolicy/schemas/agentpolicy-risk-scope.schema.json",
+      "title": "Agent Policy Risk Scope",
+      "type": "object",
+      "required": [
+        "scope_type",
+        "risk_level"
+      ],
+      "properties": {
+        "scope_id": {
+          "type": "string"
+        },
+        "scope_type": {
+          "type": "string",
+          "enum": [
+            "tool_call",
+            "model_call",
+            "artifact_export",
+            "source_access",
+            "credential_use",
+            "filesystem",
+            "network",
+            "remote_agent",
+            "data_retention",
+            "redaction",
+            "human_action",
+            "memory_write",
+            "task_delegation",
+            "ui_surface",
+            "cost_or_quota"
+          ]
+        },
+        "risk_level": {
+          "type": "string",
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "critical",
+            "unknown"
+          ]
+        },
+        "resource_class": {
+          "type": "string"
+        },
+        "trust_boundary": {
+          "type": "string"
+        },
+        "data_classification": {
+          "type": "string"
+        },
+        "reason_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "refs": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "result": {
+      "type": "string",
+      "enum": [
+        "allow",
+        "deny",
+        "ask",
+        "defer",
+        "escalate",
+        "waive",
+        "not_applicable",
+        "indeterminate"
+      ]
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "matched_rules": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "obligations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "advice": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": true
+}

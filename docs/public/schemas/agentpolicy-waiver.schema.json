@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://limecloud.github.io/agentpolicy/schemas/agentpolicy-waiver.schema.json",
+  "title": "Agent Policy Waiver Record",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "waiver_id",
+    "decision_id",
+    "waived_by",
+    "justification",
+    "scope",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "waiver_id": {
+      "type": "string"
+    },
+    "decision_id": {
+      "type": "string"
+    },
+    "original_result": {
+      "type": "string",
+      "enum": [
+        "allow",
+        "deny",
+        "ask",
+        "defer",
+        "escalate",
+        "waive",
+        "not_applicable",
+        "indeterminate"
+      ]
+    },
+    "waived_by": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "refs": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "justification": {
+      "type": "string"
+    },
+    "scope": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://limecloud.github.io/agentpolicy/schemas/agentpolicy-risk-scope.schema.json",
+      "title": "Agent Policy Risk Scope",
+      "type": "object",
+      "required": [
+        "scope_type",
+        "risk_level"
+      ],
+      "properties": {
+        "scope_id": {
+          "type": "string"
+        },
+        "scope_type": {
+          "type": "string",
+          "enum": [
+            "tool_call",
+            "model_call",
+            "artifact_export",
+            "source_access",
+            "credential_use",
+            "filesystem",
+            "network",
+            "remote_agent",
+            "data_retention",
+            "redaction",
+            "human_action",
+            "memory_write",
+            "task_delegation",
+            "ui_surface",
+            "cost_or_quota"
+          ]
+        },
+        "risk_level": {
+          "type": "string",
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "critical",
+            "unknown"
+          ]
+        },
+        "resource_class": {
+          "type": "string"
+        },
+        "trust_boundary": {
+          "type": "string"
+        },
+        "data_classification": {
+          "type": "string"
+        },
+        "reason_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "refs": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "review_required": {
+      "type": "boolean"
+    },
+    "refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": true
+}

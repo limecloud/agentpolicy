@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://limecloud.github.io/agentpolicy/schemas/agentpolicy-trace.schema.json",
+  "title": "Agent Policy Trace",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "trace_id",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "trace_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "input_refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "input_hash": {
+      "type": "string"
+    },
+    "engine_refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "policy_set_refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "rule_refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "decision_refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "approval_refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "grant_refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "waiver_refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "runtime_refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "telemetry_refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": true
+}
