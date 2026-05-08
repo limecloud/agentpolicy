@@ -1,6 +1,6 @@
 {
   "name": "agentpolicy-standard",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "description": "Draft documentation for the Agent Policy standard.",
   "homepage": "https://limecloud.github.io/agentpolicy/",

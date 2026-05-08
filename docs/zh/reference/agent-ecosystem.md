@@ -1,6 +1,6 @@
 ---
 title: Agent 标准生态
-description: Agent Knowledge、Agent UI、Agent Runtime、Agent Evidence、Agent Policy 与 Agent Artifact 的相互链接。
+description: Agent Knowledge、Agent UI、Agent Runtime、Agent Evidence、Agent Policy、Agent Artifact 与 Agent Tool 的相互链接。
 ---
 
 # Agent 标准生态
@@ -25,6 +25,7 @@ Policy 说明一个 Agent 动作是否可以继续、在什么约束下继续、
 | Agent Evidence | evidence、provenance、verification、review、replay 与 export。 | [site](https://limecloud.github.io/agentevidence/) | [llms-full](https://limecloud.github.io/agentevidence/llms-full.txt) | [repo](https://github.com/limecloud/agentevidence) |
 | Agent Policy | risk、permission、approval、retention、waiver、access 与 policy decision facts。 | [site](https://limecloud.github.io/agentpolicy/) | [llms-full](https://limecloud.github.io/agentpolicy/llms-full.txt) | [repo](https://github.com/limecloud/agentpolicy) |
 | Agent Artifact | durable deliverables、versions、parts、previews、exports、source links 与 handoff packages。 | [site](https://limecloud.github.io/agentartifact/) | [llms-full](https://limecloud.github.io/agentartifact/llms-full.txt) | [repo](https://github.com/limecloud/agentartifact) |
+| Agent Tool | tool declarations、surfaces、invocations、progress、results、permissions 与 audit refs。 | [site](https://limecloud.github.io/agenttool/) | [llms-full](https://limecloud.github.io/agenttool/llms-full.txt) | [repo](https://github.com/limecloud/agenttool) |
 
 ## 边界规则
 
@@ -35,13 +36,13 @@ Agent UI        -> Agent 工作如何投影到用户可见表面
 Agent Evidence  -> Agent 结果为什么可信、可复查、可重放、可导出
 Agent Policy    -> Agent 动作是否可以继续以及需要哪些约束
 Agent Artifact  -> Agent 产出了什么 durable deliverable 以及它如何变化
+Agent Tool      -> Agent 暴露、调用、推进并返回了什么能力
 ```
 
 ## 未来标准候选
 
 | Candidate | 为什么可能成为标准 |
 | --- | --- |
-| Agent Tool | capability declarations、permissions、progress、results、large outputs 与 audit refs。 |
 | Agent Context | working context、memory、compaction、missing context 与 source selection boundaries。 |
 | Agent Evaluation | acceptance scenarios、rubrics、eval runs、quality gates 与 evidence-backed benchmark records。 |
 | Agent Workflow | portable multi-step plans、scene launches、background jobs 与 handoff states。 |
