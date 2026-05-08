@@ -39,9 +39,12 @@ Version: v0.1.2
 - Agent Evidence: https://limecloud.github.io/agentevidence/
 - Agent Artifact: https://limecloud.github.io/agentartifact/
 - Agent Tool: https://limecloud.github.io/agenttool/
+- Agent Context: https://limecloud.github.io/agentcontext/
 
 ## Versions
 
+- v0.1.3 overview: https://limecloud.github.io/agentpolicy/en/versions/v0.1.3/overview
+- v0.1.3 specification snapshot: https://limecloud.github.io/agentpolicy/en/versions/v0.1.3/specification
 - v0.1.2 overview: https://limecloud.github.io/agentpolicy/en/versions/v0.1.2/overview
 - v0.1.2 specification snapshot: https://limecloud.github.io/agentpolicy/en/versions/v0.1.2/specification
 - v0.1.1 overview: https://limecloud.github.io/agentpolicy/en/versions/v0.1.1/overview
