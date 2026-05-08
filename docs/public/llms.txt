@@ -4,7 +4,7 @@
 
 Site: https://limecloud.github.io/agentpolicy/
 Repository: https://github.com/limecloud/agentpolicy
-Version: v0.1.0
+Version: v0.1.1
 
 ## Start
 
@@ -37,3 +37,11 @@ Version: v0.1.0
 - Agent UI: https://limecloud.github.io/agentui/
 - Agent Runtime: https://limecloud.github.io/agentruntime/
 - Agent Evidence: https://limecloud.github.io/agentevidence/
+- Agent Artifact: https://limecloud.github.io/agentartifact/
+
+## Versions
+
+- v0.1.1 overview: https://limecloud.github.io/agentpolicy/en/versions/v0.1.1/overview
+- v0.1.1 specification snapshot: https://limecloud.github.io/agentpolicy/en/versions/v0.1.1/specification
+- v0.1.0 overview: https://limecloud.github.io/agentpolicy/en/versions/v0.1.0/overview
+- v0.1.0 specification snapshot: https://limecloud.github.io/agentpolicy/en/versions/v0.1.0/specification

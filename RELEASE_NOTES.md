@@ -1,20 +1,17 @@
-# Agent Policy v0.1.0
+# Agent Policy v0.1.1
 
-Agent Policy v0.1.0 is the first public draft of a portable standard for policy decisions around agent systems.
+Agent Policy v0.1.1 is a patch release that refreshes the Agent standards ecosystem after Agent Artifact became a current published standard.
 
 ## Highlights
 
-- Defines `policy_decision` with `allow`, `deny`, `ask`, `defer`, `escalate`, `waive`, `not_applicable`, and `indeterminate` outcomes.
-- Adds risk scopes for tools, models, artifacts, sources, credentials, filesystems, networks, memory, remote agents, and human actions.
-- Adds approval request, permission grant, redaction and retention, waiver, delegation, interoperability, and policy trace contracts.
-- Publishes JSON Schemas for core objects.
-- Publishes English and Chinese documentation.
-- Adds `llms.txt`, `llms-full.txt`, and compatibility aliases for AI-friendly consumption.
-- Adds GitHub Pages deployment workflow.
+- Adds Agent Artifact to the current standards table and boundary map.
+- Removes Agent Artifact from the future-candidate list.
+- Adds Agent Artifact to README related-standard links.
+- Updates `llms.txt`, `llms-full.txt`, and public LLM copies so AI clients can discover Agent Artifact.
+- Adds version snapshot pages for v0.1.1.
 
 ## Links
 
 - Documentation: https://limecloud.github.io/agentpolicy/
-- English specification: https://limecloud.github.io/agentpolicy/en/specification
-- Chinese specification: https://limecloud.github.io/agentpolicy/zh/specification
+- Agent Artifact: https://limecloud.github.io/agentartifact/
 - LLM context: https://limecloud.github.io/agentpolicy/llms-full.txt
