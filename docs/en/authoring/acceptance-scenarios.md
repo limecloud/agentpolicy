@@ -28,3 +28,7 @@ Given a blocked production action, an authorized reviewer creates a waiver with 
 ## Retention expiry
 
 Given a memory write, policy sets payload retention and audit metadata retention separately. When payload expires, audit shape remains available for review.
+
+## Agent Runtime profile policy
+
+Given a runtime tool call requires policy evaluation, the policy decision preserves runtime correlation ids and maps `ask` to a runtime action request. Runtime enforces the decision and emits execution facts; policy records why the decision, grant, waiver, redaction, or retention obligation existed. See [Runtime profile test cases](./runtime-profile-test-cases).

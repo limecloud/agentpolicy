@@ -1,17 +1,15 @@
-# Agent Policy v0.1.3
+# Agent Policy v0.1.4
 
-Agent Policy v0.1.3 is a patch release that refreshes the Agent standards ecosystem after Agent Context became a current published standard.
+Agent Policy v0.1.4 is a runtime-profile alignment release. It makes policy decisions, approvals, grants, waivers, redaction, retention, and traces explicitly linkable to Agent Runtime facts.
 
 ## Highlights
 
-- Adds Agent Context to the current standards table and boundary map.
-- Removes Agent Context from the future-candidate list.
-- Adds Agent Context to README related-standard links.
-- Updates `llms.txt`, `llms-full.txt`, and public LLM copies so AI clients can discover Agent Context.
-- Adds version snapshot pages for v0.1.3.
+- Adds English and Simplified Chinese runtime profile test cases for runtime ids, risk scopes, decisions, ask/deny/allow mapping, grants, waivers, delegated approvals, redaction, and policy traces.
+- Aligns interoperability guidance with Agent Runtime `permission.*`, `action.*`, `sandbox.*`, `tool.*`, evidence, and UI refs.
+- Extends the event schema with optional runtime correlation fields.
+- Refreshes package metadata, navigation, version snapshots, README, and LLM entrypoints to v0.1.4.
 
 ## Links
 
 - Documentation: https://limecloud.github.io/agentpolicy/
-- Agent Context: https://limecloud.github.io/agentcontext/
 - LLM context: https://limecloud.github.io/agentpolicy/llms-full.txt

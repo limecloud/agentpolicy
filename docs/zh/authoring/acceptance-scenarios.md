@@ -24,3 +24,7 @@ Peer agent 获得不可转让 grant，并必须返回 policy/evidence/telemetry 
 ## Waiver
 
 被阻断的生产动作只有在有权限 reviewer 创建带 expiry 和 review requirement 的 waiver 后才可继续，且 Evidence 保留原始 denial。
+
+## Agent Runtime profile policy
+
+当 runtime tool call 需要 policy evaluation 时，policy decision 保留 runtime correlation ids，并把 `ask` 映射为 runtime action request。Runtime 执行 decision 并发出 execution facts；policy 记录 decision、grant、waiver、redaction 或 retention obligation 为什么存在。详见 [Runtime Profile 测试用例](./runtime-profile-test-cases)。

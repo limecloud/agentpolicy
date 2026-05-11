@@ -12,6 +12,9 @@ const enNav = [
     text: 'Version',
     items: [
       { text: 'latest', link: '/en/specification' },
+      { text: 'v0.1.4 overview', link: '/en/versions/v0.1.4/overview' },
+      { text: 'v0.1.4 specification', link: '/en/versions/v0.1.4/specification' },
+      { text: 'v0.1.4 changelog', link: '/en/versions/v0.1.4/changelog' },
       { text: 'v0.1.3 overview', link: '/en/versions/v0.1.3/overview' },
       { text: 'v0.1.3 specification', link: '/en/versions/v0.1.3/specification' },
       { text: 'v0.1.3 changelog', link: '/en/versions/v0.1.3/changelog' },
@@ -39,6 +42,9 @@ const zhNav = [
     text: '版本',
     items: [
       { text: 'latest', link: '/zh/specification' },
+      { text: 'v0.1.4 概览', link: '/zh/versions/v0.1.4/overview' },
+      { text: 'v0.1.4 规范', link: '/zh/versions/v0.1.4/specification' },
+      { text: 'v0.1.4 变更记录', link: '/zh/versions/v0.1.4/changelog' },
       { text: 'v0.1.3 概览', link: '/zh/versions/v0.1.3/overview' },
       { text: 'v0.1.3 规范', link: '/zh/versions/v0.1.3/specification' },
       { text: 'v0.1.3 变更记录', link: '/zh/versions/v0.1.3/changelog' },
@@ -76,7 +82,8 @@ const enSidebar = [
   ]},
   { text: 'For implementors', items: [
     { text: 'Implementation quickstart', link: '/en/authoring/quickstart' },
-    { text: 'Acceptance scenarios', link: '/en/authoring/acceptance-scenarios' }
+    { text: 'Acceptance scenarios', link: '/en/authoring/acceptance-scenarios' },
+    { text: 'Runtime profile test cases', link: '/en/authoring/runtime-profile-test-cases' }
   ]},
   { text: 'Reference', items: [
     { text: 'Glossary', link: '/en/reference/glossary' },
@@ -92,6 +99,9 @@ const enSidebar = [
     { text: 'Model routing risk', link: '/en/examples/model-routing-risk' }
   ]},
   { text: 'Versions', items: [
+    { text: 'v0.1.4 overview', link: '/en/versions/v0.1.4/overview' },
+    { text: 'v0.1.4 specification', link: '/en/versions/v0.1.4/specification' },
+    { text: 'v0.1.4 changelog', link: '/en/versions/v0.1.4/changelog' },
     { text: 'v0.1.3 overview', link: '/en/versions/v0.1.3/overview' },
     { text: 'v0.1.3 specification', link: '/en/versions/v0.1.3/specification' },
     { text: 'v0.1.3 changelog', link: '/en/versions/v0.1.3/changelog' },
@@ -121,7 +131,8 @@ const zhSidebar = [
   ]},
   { text: '实现者', items: [
     { text: '快速开始', link: '/zh/authoring/quickstart' },
-    { text: '验收场景', link: '/zh/authoring/acceptance-scenarios' }
+    { text: '验收场景', link: '/zh/authoring/acceptance-scenarios' },
+    { text: 'Runtime Profile 测试用例', link: '/zh/authoring/runtime-profile-test-cases' }
   ]},
   { text: '参考', items: [
     { text: '术语表', link: '/zh/reference/glossary' },
@@ -137,6 +148,9 @@ const zhSidebar = [
     { text: '模型路由风险', link: '/zh/examples/model-routing-risk' }
   ]},
   { text: '版本', items: [
+    { text: 'v0.1.4 概览', link: '/zh/versions/v0.1.4/overview' },
+    { text: 'v0.1.4 规范', link: '/zh/versions/v0.1.4/specification' },
+    { text: 'v0.1.4 变更记录', link: '/zh/versions/v0.1.4/changelog' },
     { text: 'v0.1.3 概览', link: '/zh/versions/v0.1.3/overview' },
     { text: 'v0.1.3 规范', link: '/zh/versions/v0.1.3/specification' },
     { text: 'v0.1.3 变更记录', link: '/zh/versions/v0.1.3/changelog' },

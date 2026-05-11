@@ -1,6 +1,6 @@
 ---
-title: Specification
-description: Latest Agent Policy draft specification.
+title: v0.1.4 specification
+description: Agent Policy v0.1.4 specification snapshot.
 ---
 
 # Specification

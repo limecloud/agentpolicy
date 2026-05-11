@@ -36,4 +36,5 @@ features:
 - [Policy model](concepts/policy-model)
 - [Latest specification](specification)
 - [Implementation quickstart](authoring/quickstart)
+- [Runtime profile test cases](authoring/runtime-profile-test-cases)
 - [JSON Schemas](reference/json-schemas)

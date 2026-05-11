@@ -22,6 +22,19 @@ Agent Policy is intentionally engine-neutral. It can wrap outputs from a rule en
 | OpenTelemetry | Policy decisions can correlate with traces, spans, and GenAI semantic events. |
 | Agent Evidence | Evidence packs can include policy decisions, approvals, grants, waivers, and traces. |
 
+## Agent Runtime profile alignment
+
+For Agent Runtime-compatible systems, Agent Policy decisions should be referenced by `permission.*`, `action.*`, `sandbox.*`, `tool.*`, routing, evidence, and UI facts:
+
+```text
+RiskScope / PolicyDecision / ApprovalRequest / PermissionGrant / WaiverRecord / PolicyTrace
+  -> RuntimeEvent refs
+  -> ThreadReadModel pending actions
+  -> EvidencePack policy refs
+```
+
+Policy MUST NOT execute tools, mark actions resolved, or declare task completion. Runtime enforces decisions and emits execution facts; policy records why a decision, grant, waiver, redaction, or retention obligation existed.
+
 ## Boundary rule
 
 If the question is "how do I write rules?", use a policy engine. If the question is "who is authenticated?", use identity and authorization infrastructure. If the question is "what did the agent policy decide and how should adjacent systems exchange that fact?", use Agent Policy.

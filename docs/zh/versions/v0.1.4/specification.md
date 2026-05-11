@@ -1,6 +1,6 @@
 ---
-title: 规范
-description: Agent Policy 最新草案规范。
+title: v0.1.4 规范
+description: Agent Policy v0.1.4 规范快照。
 ---
 
 # 规范

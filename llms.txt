@@ -4,7 +4,7 @@
 
 Site: https://limecloud.github.io/agentpolicy/
 Repository: https://github.com/limecloud/agentpolicy
-Version: v0.1.2
+Version: v0.1.4
 
 ## Start
 
@@ -12,6 +12,8 @@ Version: v0.1.2
 - Specification: https://limecloud.github.io/agentpolicy/en/specification
 - Policy model: https://limecloud.github.io/agentpolicy/en/concepts/policy-model
 - JSON Schemas: https://limecloud.github.io/agentpolicy/en/reference/json-schemas
+
+- Runtime profile test cases: https://limecloud.github.io/agentpolicy/en/authoring/runtime-profile-test-cases - Agent Runtime policy linkage validation.
 
 ## Core contracts
 
@@ -43,6 +45,8 @@ Version: v0.1.2
 
 ## Versions
 
+- v0.1.4 overview: https://limecloud.github.io/agentpolicy/en/versions/v0.1.4/overview
+- v0.1.4 specification snapshot: https://limecloud.github.io/agentpolicy/en/versions/v0.1.4/specification
 - v0.1.3 overview: https://limecloud.github.io/agentpolicy/en/versions/v0.1.3/overview
 - v0.1.3 specification snapshot: https://limecloud.github.io/agentpolicy/en/versions/v0.1.3/specification
 - v0.1.2 overview: https://limecloud.github.io/agentpolicy/en/versions/v0.1.2/overview

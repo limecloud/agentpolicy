@@ -19,3 +19,16 @@ Agent Policy 是 engine-neutral 的。它可以包裹本地规则、配置、托
 | CloudEvents | Policy event 可使用通用 event envelope。 |
 | OpenTelemetry | Policy decision 可关联 trace、span 与 GenAI telemetry。 |
 | Agent Evidence | Evidence pack 可纳入 decisions、approvals、grants、waivers 与 traces。 |
+
+## Agent Runtime profile alignment
+
+对 Agent Runtime 兼容系统，Agent Policy decisions 应被 `permission.*`、`action.*`、`sandbox.*`、`tool.*`、routing、evidence 与 UI facts 引用：
+
+```text
+RiskScope / PolicyDecision / ApprovalRequest / PermissionGrant / WaiverRecord / PolicyTrace
+  -> RuntimeEvent refs
+  -> ThreadReadModel pending actions
+  -> EvidencePack policy refs
+```
+
+Policy MUST NOT 执行工具、标记 action resolved 或声明 task completion。Runtime 负责执行 decisions 并发出 execution facts；policy 记录 decision、grant、waiver、redaction 或 retention obligation 为什么存在。

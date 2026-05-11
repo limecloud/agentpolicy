@@ -2,11 +2,17 @@
 
 Source root: https://limecloud.github.io/agentpolicy
 
-Agent Policy is a portable standard for agent policy decisions, approvals, permission grants, risk scopes, redaction, retention, waivers, and policy traces. It does not replace policy engines, identity providers, UI components, runtime executors, evidence systems, or artifact stores.
+Agent Policy is a portable draft standard for agent policy decisions, approvals, permission grants, risk scopes, redaction, retention, waivers, and policy traces.
+
+This file concatenates the current English documentation most useful for model context. Each section includes its source URL. Version snapshots and translated pages are linked from `llms.txt`; the latest release snapshot is included at the end.
 
 
-# What is Agent Policy?
+# What Is Agent Policy
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/what-is-agent-policy
+
 
 # What is Agent Policy?
 
@@ -46,8 +52,12 @@ A minimal compatible implementation can emit one `policy_decision` before a risk
 A stronger implementation adds `approval_request`, `permission_grant`, `risk_scope`, `waiver_record`, redaction and retention obligations, and `policy_trace` records so the decision survives UI changes, runtime migrations, and audit export.
 
 
-# Policy model
+# Policy Model
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/concepts/policy-model
+
 
 # Policy Model
 
@@ -113,7 +123,11 @@ Policy records need independent ids. A session id or message id is not enough. U
 
 
 # Specification
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/specification
+
 
 # Specification
 
@@ -133,6 +147,7 @@ Agent Policy standardizes these implementation concerns:
 6. Waiver records that explain bounded overrides without hiding the original decision.
 7. Policy traces that link inputs, policy engines, policy sets, matched rules, decisions, approvals, grants, telemetry, and evidence refs.
 8. Interoperability with policy engines, identity systems, runtime event streams, evidence packs, artifacts, tools, knowledge sources, and peer-agent protocols.
+9. Runtime profile tests that prove policy decisions can be referenced by runtime permission/action/tool/evidence facts without becoming execution facts.
 
 Agent Policy does **not** standardize a policy language, OAuth profile, UI component library, prompt format, model API, artifact byte format, vector store, task language, or compliance certification process.
 
@@ -360,8 +375,12 @@ Agent Policy recommends fail-closed behavior for `deny`, `ask`, `escalate`, and 
 Version `0.1.0` is a draft. Implementations SHOULD include `schema_version: "0.1.0"` and tolerate unknown fields. Producers SHOULD keep core field names stable and add optional fields rather than changing result semantics.
 
 
-# Policy decision
+# Policy Decision
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/contracts/policy-decision
+
 
 # Policy Decision
 
@@ -405,8 +424,12 @@ Source: https://limecloud.github.io/agentpolicy/en/contracts/policy-decision
 - Record any override as a `waiver_record`, not as a silent mutation of the decision.
 
 
-# Risk scope
+# Risk Scope
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/contracts/risk-scope
+
 
 # Risk Scope
 
@@ -445,8 +468,12 @@ Risk is not only about safety. It also covers reversibility, privacy, cost, comp
 Risk scope should be generated before a policy engine evaluates rules. This lets engines, UI, and evidence agree on the same risk classification even if they use different enforcement mechanisms.
 
 
-# Approval request
+# Approval Request
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/contracts/approval-request
+
 
 # Approval Request
 
@@ -484,8 +511,12 @@ High-risk approvals should include the exact command, tool, destination, resourc
 An approval response should preserve who responded, when, which choice was selected, what constraints changed, and which grant or waiver resulted. Do not overwrite the original approval request.
 
 
-# Permission grant
+# Permission Grant
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/contracts/permission-grant
+
 
 # Permission Grant
 
@@ -513,8 +544,12 @@ Grants are facts with lifecycle. A revoked grant should keep `grant_id`, `issued
 When a grant is delegated to a subagent or remote system, the grant must state whether it is transferable, which capabilities can be delegated, and which refs must be returned for audit.
 
 
-# Redaction and retention
+# Redaction Retention
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/contracts/redaction-retention
+
 
 # Redaction and Retention
 
@@ -546,8 +581,12 @@ A retention obligation should describe:
 A secure system can delete private payloads while preserving audit shape: ids, hashes, timestamps, reason codes, decision refs, and proof that redaction happened.
 
 
-# Waiver record
+# Waiver Record
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/contracts/waiver-record
+
 
 # Waiver Record
 
@@ -572,8 +611,12 @@ Every waiver SHOULD include:
 A waiver is not a way to erase denied decisions. It must preserve the original decision and make the override visible to runtime, evidence, audit, and later review.
 
 
-# Policy trace
+# Policy Trace
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/contracts/policy-trace
+
 
 # Policy Trace
 
@@ -598,8 +641,12 @@ A trace SHOULD include:
 Do not store raw secrets, private prompts, full tool outputs, or complete policy inputs in a trace unless they are explicitly safe to export. Store refs and hashes instead.
 
 
-# Delegation and remote policy
+# Delegation And Remote Policy
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/contracts/delegation-and-remote-policy
+
 
 # Delegation and Remote Policy
 
@@ -627,7 +674,11 @@ If a remote system cannot prove enforcement of a required obligation, the origin
 
 
 # Interoperability
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/contracts/interoperability
+
 
 # Interoperability
 
@@ -647,13 +698,30 @@ Agent Policy is intentionally engine-neutral. It can wrap outputs from a rule en
 | OpenTelemetry | Policy decisions can correlate with traces, spans, and GenAI semantic events. |
 | Agent Evidence | Evidence packs can include policy decisions, approvals, grants, waivers, and traces. |
 
+## Agent Runtime profile alignment
+
+For Agent Runtime-compatible systems, Agent Policy decisions should be referenced by `permission.*`, `action.*`, `sandbox.*`, `tool.*`, routing, evidence, and UI facts:
+
+```text
+RiskScope / PolicyDecision / ApprovalRequest / PermissionGrant / WaiverRecord / PolicyTrace
+  -> RuntimeEvent refs
+  -> ThreadReadModel pending actions
+  -> EvidencePack policy refs
+```
+
+Policy MUST NOT execute tools, mark actions resolved, or declare task completion. Runtime enforces decisions and emits execution facts; policy records why a decision, grant, waiver, redaction, or retention obligation existed.
+
 ## Boundary rule
 
 If the question is "how do I write rules?", use a policy engine. If the question is "who is authenticated?", use identity and authorization infrastructure. If the question is "what did the agent policy decide and how should adjacent systems exchange that fact?", use Agent Policy.
 
 
-# Implementation quickstart
+# Quickstart
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/authoring/quickstart
+
 
 # Implementation Quickstart
 
@@ -697,8 +765,12 @@ If approval happens, emit `approval_request` and `permission_grant`. If an overr
 Publish compact JSON that validates against the draft schemas in `docs/public/schemas/`. Keep large payloads in owning systems and use refs.
 
 
-# Acceptance scenarios
+# Acceptance Scenarios
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/authoring/acceptance-scenarios
+
 
 # Acceptance Scenarios
 
@@ -726,9 +798,88 @@ Given a blocked production action, an authorized reviewer creates a waiver with 
 
 Given a memory write, policy sets payload retention and audit metadata retention separately. When payload expires, audit shape remains available for review.
 
+## Agent Runtime profile policy
 
-# Ecosystem boundaries
+Given a runtime tool call requires policy evaluation, the policy decision preserves runtime correlation ids and maps `ask` to a runtime action request. Runtime enforces the decision and emits execution facts; policy records why the decision, grant, waiver, redaction, or retention obligation existed. See [Runtime profile test cases](./runtime-profile-test-cases).
+
+
+# Runtime Profile Test Cases
+
+
+
+Source: https://limecloud.github.io/agentpolicy/en/authoring/runtime-profile-test-cases
+
+
+# Runtime profile test cases
+
+Use these cases when Agent Policy is used by Agent Runtime, Lime AgentRuntime Profile, or an equivalent runtime spine. The goal is to prove that policy decisions, approvals, grants, waivers, redaction, and retention facts can be referenced by runtime events without becoming runtime execution itself.
+
+## Canonical boundary
+
+```text
+RiskScope / PolicyDecision / ApprovalRequest / PermissionGrant / WaiverRecord / PolicyTrace
+  -> permission.*, action.*, sandbox.*, tool.*, model routing, evidence, and UI refs
+  -> Runtime enforces; UI renders; Evidence records
+```
+
+Agent Policy owns the decision fact. Runtime owns enforcement and execution. UI owns presentation. Evidence owns audit packaging.
+
+## Runtime correlation fields
+
+Policy events SHOULD preserve these ids when available:
+
+| Field | Purpose |
+| --- | --- |
+| `runtime_id` / `session_id` / `thread_id` / `turn_id` | Scope a policy decision to a runtime turn. |
+| `task_id` / `run_id` / `attempt_id` | Scope a decision to a task attempt. |
+| `step_id` / `tool_call_id` / `action_id` | Join tool requests and action waits to policy decisions. |
+| `evidence_id` / `trace_id` | Join policy traces to evidence and telemetry. |
+| `context_id` / `artifact_id` | Join policy decisions to adjacent owners. |
+
+## Test cases
+
+| ID | Case | Input facts | Expected result |
+| --- | --- | --- | --- |
+| APOL-AR-ID-001 | Decision preserves runtime ids | Tool or model action is evaluated | Policy event includes `session_id/thread_id/turn_id` and applicable task/run ids. |
+| APOL-AR-RISK-001 | Risk scope is explicit | Tool touches filesystem/network/credential | Risk scope names action, resource, actor, context refs, and severity. |
+| APOL-AR-DEC-001 | Allow does not execute by itself | Policy returns `allow` | Runtime still emits enforcement/tool events; policy only records decision. |
+| APOL-AR-ASK-001 | Ask maps to runtime action | Policy returns `ask` | Runtime can emit `permission.evaluated` and `action.required` with `action_id`. |
+| APOL-AR-DENY-001 | Deny blocks execution | Policy returns `deny` | Runtime emits denied/blocked fact; no successful tool result is implied by policy alone. |
+| APOL-AR-GRANT-001 | Permission grant is bounded | User approves request | Grant carries constraints, expiry, scope, actor, and `action_id`. |
+| APOL-AR-WAIVER-001 | Waiver preserves original decision | User or admin waives deny/ask | Waiver links original decision, reason, approver, expiry, and evidence refs. |
+| APOL-AR-REDACT-001 | Redaction/retention is enforceable | Evidence or context export includes sensitive data | Policy obligations are referenced by context/evidence/export without exposing raw secrets. |
+| APOL-AR-DELEGATE-001 | Delegated approval keeps source | Subagent or remote agent asks for permission | Approval request includes parent/child or remote ids and delegated actor. |
+| APOL-AR-TRACE-001 | Policy trace joins runtime/evidence | Evidence pack is exported | Policy trace refs can join decision, action, tool call, runtime ids, and evidence ids. |
+
+## Failure cases
+
+These are incompatible with Agent Policy:
+
+1. A policy record claims a tool executed successfully.
+2. UI marks approval resolved before runtime confirms `action.resolved` or grant issuance.
+3. A grant lacks scope, expiry, or actor information.
+4. A waiver hides the original denied or ask decision.
+5. Delegated/remote approval drops parent session/thread/task lineage.
+6. Redaction obligations are only UI copy and not referenced by context/evidence export.
+
+## Minimum validation set
+
+For Agent Runtime-compatible integration, run at least:
+
+1. APOL-AR-ID-001 and APOL-AR-RISK-001.
+2. APOL-AR-DEC-001, APOL-AR-ASK-001, and APOL-AR-DENY-001.
+3. APOL-AR-GRANT-001 and APOL-AR-WAIVER-001.
+4. APOL-AR-DELEGATE-001 and APOL-AR-TRACE-001.
+
+Runtime proves enforcement happened. Agent Policy proves why a decision, approval, grant, waiver, or redaction obligation existed.
+
+
+# Ecosystem Boundaries
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/reference/ecosystem-boundaries
+
 
 # Ecosystem Boundaries
 
@@ -755,8 +906,12 @@ Agent Policy is a horizontal standard. It touches many systems but should not ab
 - Duplicating artifact bytes, knowledge documents, or trace logs inside policy records.
 
 
-# Research sources
+# Research Sources
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/reference/research-sources
+
 
 # Research Sources
 
@@ -779,8 +934,12 @@ Agent Policy v0.1.0 uses established policy, authorization, eventing, telemetry,
 | [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) | Governance-oriented vocabulary for mapping, measuring, managing, and documenting AI risk. |
 
 
-# Source analysis
+# Source Analysis
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/reference/source-analysis
+
 
 # Source Analysis
 
@@ -807,8 +966,12 @@ That shape is broader than classic API authorization and narrower than a full go
 7. Make `indeterminate` fail closed by default because agent systems often operate across incomplete context.
 
 
-# Agent standards ecosystem
+# Agent Ecosystem
+
+
+
 Source: https://limecloud.github.io/agentpolicy/en/reference/agent-ecosystem
+
 
 # Agent Standards Ecosystem
 
@@ -876,34 +1039,469 @@ These candidates should remain design notes until they can be specified without 
 External protocols are references, not ownership transfers. The Agent standards should preserve their native ids and semantics while defining agent-specific relationships.
 
 
-# v0.1.0 overview
-Source: https://limecloud.github.io/agentpolicy/en/versions/v0.1.0/overview
+# Json Schemas
 
-# v0.1.0 Overview
 
-Agent Policy v0.1.0 is the first public draft. It defines the decision, approval, grant, risk, waiver, trace, redaction, retention, and interoperability vocabulary needed for agent policy exchange.
 
-## Included
+Source: https://limecloud.github.io/agentpolicy/en/reference/json-schemas
 
-- `policy_decision` core envelope.
-- `risk_scope` vocabulary.
-- `approval_request` and `permission_grant` contracts.
-- redaction and retention obligations.
-- `waiver_record` and `policy_trace` contracts.
-- event classes and JSON Schemas.
-- English and Chinese documentation.
-- LLM-friendly `llms.txt` and `llms-full.txt`.
 
-# v0.1.2 overview
-Source: https://limecloud.github.io/agentpolicy/en/versions/v0.1.2/overview
+# JSON Schemas
 
-# v0.1.2 Overview
+The v0.1.0 schemas are draft interoperability anchors. They are intentionally permissive where products need extension, but strict about identity and result vocabulary.
 
-Agent Policy v0.1.2 is a patch release that refreshes the Agent standards ecosystem after Agent Tool became a current published standard.
+| Schema | Purpose |
+| --- | --- |
+| [agentpolicy-decision.schema.json](../../schemas/agentpolicy-decision.schema.json) | Policy decision envelope. |
+| [agentpolicy-risk-scope.schema.json](../../schemas/agentpolicy-risk-scope.schema.json) | Risk scope object. |
+| [agentpolicy-approval-request.schema.json](../../schemas/agentpolicy-approval-request.schema.json) | Approval request object. |
+| [agentpolicy-permission-grant.schema.json](../../schemas/agentpolicy-permission-grant.schema.json) | Permission grant object. |
+| [agentpolicy-waiver.schema.json](../../schemas/agentpolicy-waiver.schema.json) | Waiver record object. |
+| [agentpolicy-trace.schema.json](../../schemas/agentpolicy-trace.schema.json) | Policy trace object. |
+| [agentpolicy-event.schema.json](../../schemas/agentpolicy-event.schema.json) | Event envelope. |
 
-## Included
+## Compatibility guidance
 
-- Agent Tool link in current standards tables.
-- Updated boundary map with the portable tool layer.
-- LLM entrypoint refresh for AI clients.
-- No breaking protocol changes to Agent Policy.
+- Producers SHOULD include `schema_version`.
+- Consumers SHOULD ignore unknown fields.
+- Producers SHOULD keep core enum semantics stable.
+- Large payloads SHOULD be referenced rather than embedded.
+
+
+# Glossary
+
+
+
+Source: https://limecloud.github.io/agentpolicy/en/reference/glossary
+
+
+# Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Agent Policy | Portable decision and trace facts for policy around agent actions. |
+| Policy decision | Result of evaluating a proposed action. |
+| Subject | Actor requesting an action: user, agent, service, subagent, or session. |
+| Action | Proposed operation: tool call, model call, export, memory write, delegation, and similar. |
+| Resource | Target of an action: file, URL, artifact, source, model, tool, credential, or peer. |
+| Context | Facts used to evaluate policy: mode, trust boundary, sensitivity, time, cost, tenant, and refs. |
+| Risk scope | Typed boundary affected by the action. |
+| Obligation | Enforceable duty attached to a decision. |
+| Advice | Non-binding guidance attached to a decision. |
+| Approval request | Structured request for approval or escalation. |
+| Permission grant | Bounded capability issued after policy evaluation or approval. |
+| Waiver | Explicit bounded override of a policy block. |
+| Policy trace | Correlation graph for policy inputs, rules, decisions, approvals, grants, waivers, runtime, telemetry, and evidence. |
+
+
+# Tool Approval
+
+
+
+Source: https://limecloud.github.io/agentpolicy/en/examples/tool-approval
+
+
+# Tool Approval
+
+A runtime wants to run a shell command in a workspace.
+
+## Decision
+
+```json
+{
+  "schema_version": "0.1.0",
+  "decision_id": "poldec_tool_001",
+  "policy_set_id": "workspace-tool-policy",
+  "policy_version": "v1",
+  "evaluated_at": "2026-05-08T10:00:00Z",
+  "subject": { "type": "agent", "id": "agent_123" },
+  "action": { "type": "tool_call", "name": "shell.run" },
+  "resource": { "type": "workspace", "id": "repo_456" },
+  "context": { "mode": "auto", "command_preview": "npm test" },
+  "scope": { "scope_type": "tool_call", "risk_level": "high" },
+  "result": "ask",
+  "reason_codes": ["shell_command_risk"],
+  "obligations": [
+    { "type": "sandbox", "profile": "workspace_command" },
+    { "type": "parameter_restriction", "pattern": "workspace_relative_paths_only" }
+  ]
+}
+```
+
+## Flow
+
+1. Runtime receives `ask` and pauses execution.
+2. UI renders an approval request with command preview, sandbox, and risk reason.
+3. User chooses `approve_once`.
+4. Policy layer emits a session-scoped permission grant.
+5. Runtime executes within the sandbox.
+6. Evidence records decision, approval, grant, tool call, and trace refs.
+
+
+# Artifact Export Policy
+
+
+
+Source: https://limecloud.github.io/agentpolicy/en/examples/artifact-export-policy
+
+
+# Artifact Export Policy
+
+A user exports a report artifact that contains sensitive fields.
+
+## Decision
+
+```json
+{
+  "schema_version": "0.1.0",
+  "decision_id": "poldec_export_001",
+  "policy_set_id": "artifact-export-policy",
+  "policy_version": "v1",
+  "evaluated_at": "2026-05-08T10:05:00Z",
+  "subject": { "type": "user", "id": "user_123" },
+  "action": { "type": "artifact_export", "format": "zip" },
+  "resource": { "type": "artifact", "id": "artifact_report_456" },
+  "context": { "destination": "support_bundle" },
+  "scope": { "scope_type": "artifact_export", "risk_level": "medium" },
+  "result": "allow",
+  "reason_codes": ["export_allowed_with_redaction"],
+  "obligations": [
+    { "type": "redact_before_export", "classification": "personal_data" },
+    { "type": "keep_audit_shape" }
+  ]
+}
+```
+
+## Flow
+
+The exporter applies redaction, writes an export manifest, preserves ids and hashes, and links the export to evidence. The original artifact store remains the owner of bytes and versions.
+
+
+# Model Routing Risk
+
+
+
+Source: https://limecloud.github.io/agentpolicy/en/examples/model-routing-risk
+
+
+# Model Routing Risk
+
+A planner wants to send private source material to an external model.
+
+## Decision
+
+```json
+{
+  "schema_version": "0.1.0",
+  "decision_id": "poldec_model_001",
+  "policy_set_id": "model-routing-policy",
+  "policy_version": "v1",
+  "evaluated_at": "2026-05-08T10:10:00Z",
+  "subject": { "type": "agent", "id": "planner_123" },
+  "action": { "type": "model_call", "model_class": "external" },
+  "resource": { "type": "source_collection", "id": "private_sources" },
+  "context": { "data_classification": "confidential" },
+  "scope": { "scope_type": "model_call", "risk_level": "high" },
+  "result": "deny",
+  "reason_codes": ["confidential_data_external_model_blocked"],
+  "advice": [
+    { "type": "alternative", "message": "Use a local or private model candidate." }
+  ]
+}
+```
+
+## Flow
+
+The router removes external candidates and evaluates a private model candidate. A second decision may return `allow` with purpose and retention constraints.
+
+
+
+# V0.1.4 overview
+
+
+
+Source: https://limecloud.github.io/agentpolicy/en/versions/v0.1.4/overview
+
+
+# Agent Policy v0.1.4
+
+Agent Policy v0.1.4 is a patch release that aligns policy decisions, approvals, grants, waivers, redaction, retention, and traces with the Agent Runtime profile.
+
+## Highlights
+
+- Adds runtime profile test cases for runtime ids, risk scopes, decisions, ask/deny/allow mapping, grants, waivers, delegated approvals, redaction, and policy traces.
+- Aligns interoperability guidance with Agent Runtime permission, action, sandbox, tool, evidence, and UI refs.
+- Adds optional runtime correlation fields to the public event schema.
+- Refreshes README, navigation, LLM entrypoints, release notes, package metadata, and version snapshots for v0.1.4.
+
+
+# V0.1.4 specification
+
+
+
+Source: https://limecloud.github.io/agentpolicy/en/versions/v0.1.4/specification
+
+
+# Specification
+
+Agent Policy latest draft is a portable standard for policy decisions around agent work. It defines the facts needed to evaluate, explain, approve, enforce, waive, redact, retain, and audit agent actions across runtimes, UI surfaces, evidence systems, tools, models, artifacts, knowledge sources, and peer agents.
+
+Agent Policy owns decision semantics and policy trace contracts. It does not own the rule language, policy engine, identity provider, runtime executor, UI renderer, artifact store, trace backend, or legal compliance conclusion.
+
+## Scope
+
+Agent Policy standardizes these implementation concerns:
+
+1. Policy decision identity, inputs, result, reason codes, obligations, advice, expiry, and refs.
+2. Risk scopes for tool calls, model calls, artifact exports, source access, credential use, filesystem, network, remote agents, data retention, redaction, and human actions.
+3. Approval requests that can be rendered by UI but are not UI components.
+4. Permission grants with constraints, duration, provenance, revocation, and delegation boundaries.
+5. Redaction and retention obligations for data moving through agent systems.
+6. Waiver records that explain bounded overrides without hiding the original decision.
+7. Policy traces that link inputs, policy engines, policy sets, matched rules, decisions, approvals, grants, telemetry, and evidence refs.
+8. Interoperability with policy engines, identity systems, runtime event streams, evidence packs, artifacts, tools, knowledge sources, and peer-agent protocols.
+9. Runtime profile tests that prove policy decisions can be referenced by runtime permission/action/tool/evidence facts without becoming execution facts.
+
+Agent Policy does **not** standardize a policy language, OAuth profile, UI component library, prompt format, model API, artifact byte format, vector store, task language, or compliance certification process.
+
+## Reference architecture
+
+```text
+Agent / UI / peer system
+  -> policy input builder
+  -> policy engine or evaluator
+  -> Agent Policy decision
+  -> runtime enforcement / approval / escalation
+  -> evidence and telemetry correlation
+```
+
+A compatible implementation may use a local rules file, a hosted policy engine, embedded code, a Cedar or OPA adapter, an access-control service, or a human review queue. The portable contract is the exported Agent Policy record.
+
+## Core objects
+
+| Object | Purpose |
+| --- | --- |
+| `policy_decision` | The result of evaluating a proposed agent action. |
+| `risk_scope` | A typed description of the risk boundary affected by the action. |
+| `approval_request` | A structured prompt for a human, service, or policy authority to approve, reject, modify, or escalate. |
+| `permission_grant` | A bounded permission issued after policy evaluation or approval. |
+| `redaction_policy` | Obligations for hiding, transforming, withholding, or tokenizing sensitive data. |
+| `retention_policy` | Obligations for storing, expiring, deleting, or exporting data. |
+| `waiver_record` | A bounded override with justification and review requirements. |
+| `policy_trace` | A correlation graph across inputs, policy sets, engines, matched rules, decisions, grants, waivers, telemetry, and evidence. |
+
+## Identity model
+
+| Identity | Meaning |
+| --- | --- |
+| `decision_id` | Stable id for a policy decision. |
+| `policy_set_id` | Policy collection, bundle, tenant policy set, or rule group used for evaluation. |
+| `policy_version` | Version of the evaluated policy set or bundle. |
+| `rule_id` | Stable id for a matched rule or control. |
+| `risk_scope_id` | Stable id for a risk scope. |
+| `approval_id` | Stable id for an approval request. |
+| `grant_id` | Stable id for a permission grant. |
+| `waiver_id` | Stable id for a waiver. |
+| `trace_id` | Stable id for a policy trace. |
+| `evidence_pack_id` | Optional Agent Evidence pack ref. |
+| `task_id`, `run_id`, `thread_id`, `turn_id` | Optional runtime correlation refs. |
+
+A compatible implementation MUST NOT collapse all policy facts into one message id. Decisions, approvals, grants, waivers, traces, and risk scopes need separate identities because they can be created, updated, revoked, exported, and audited at different times.
+
+## Policy decision envelope
+
+Every exported `policy_decision` SHOULD include:
+
+| Field | Requirement |
+| --- | --- |
+| `schema_version` | Required Agent Policy schema version. |
+| `decision_id` | Required stable id. |
+| `policy_set_id`, `policy_version` | Required when a policy set is known. |
+| `evaluated_at` | Required timestamp. |
+| `subject` | Required actor requesting the action. |
+| `action` | Required action object. |
+| `resource` | Required resource object. |
+| `context` | Required contextual facts or refs. |
+| `scope` | Required risk, trust, tenancy, session, or runtime scope. |
+| `result` | Required decision result. |
+| `reason_codes` | Required machine-readable reasons. |
+| `matched_rules` | Recommended rule refs. |
+| `obligations` | Recommended enforceable duties. |
+| `advice` | Optional non-binding guidance. |
+| `expires_at` | Recommended for grants, asks, and context-sensitive allows. |
+| `refs` | Optional runtime, telemetry, evidence, artifact, source, and peer refs. |
+
+## Result semantics
+
+| Result | Runtime behavior |
+| --- | --- |
+| `allow` | Runtime may execute only within constraints and obligations. |
+| `deny` | Runtime must not execute the action. |
+| `ask` | Runtime must pause and create or link an approval request. |
+| `defer` | Runtime must wait for missing facts or another policy source. |
+| `escalate` | Runtime must route to a stronger approver or authority. |
+| `waive` | Runtime may continue only if the waiver is valid and within scope. |
+| `not_applicable` | Runtime may continue only if a separate default policy allows it. |
+| `indeterminate` | Runtime should fail closed unless a product explicitly defines a safe fallback. |
+
+## Risk levels
+
+Agent Policy uses a conservative risk vocabulary:
+
+| Risk level | Meaning |
+| --- | --- |
+| `none` | No meaningful risk beyond normal execution. |
+| `low` | Reversible or low-impact action. |
+| `medium` | User-visible, state-changing, or privacy-relevant action. |
+| `high` | Expensive, external, credentialed, destructive, or hard-to-reverse action. |
+| `critical` | Potential production, legal, financial, safety, security, or broad data impact. |
+| `unknown` | Risk cannot be determined from available facts. |
+
+## Risk scope types
+
+Compatible implementations SHOULD use these initial scope types:
+
+- `tool_call`
+- `model_call`
+- `artifact_export`
+- `source_access`
+- `credential_use`
+- `filesystem`
+- `network`
+- `remote_agent`
+- `data_retention`
+- `redaction`
+- `human_action`
+- `memory_write`
+- `task_delegation`
+- `ui_surface`
+- `cost_or_quota`
+
+## Approval request contract
+
+An `approval_request` SHOULD be emitted when the decision result is `ask` or `escalate`.
+
+Required fields:
+
+- `approval_id`
+- `decision_id`
+- `requested_action`
+- `required_approver`
+- `prompt`
+- `choices`
+- `default_action`
+- `status`
+- `created_at`
+- `expires_at`
+
+Approval choices SHOULD be explicit and auditable. Avoid boolean-only prompts for high-risk work. Use choices such as `approve_once`, `approve_for_scope`, `deny`, `modify`, `escalate`, and `request_more_info`.
+
+## Permission grant contract
+
+A `permission_grant` records a bounded permission. It may come from policy, user approval, admin approval, a delegated authority, a token exchange, or a pre-existing session rule.
+
+Required fields:
+
+- `grant_id`
+- `decision_id` or `approval_id`
+- `granted_to`
+- `capability`
+- `constraints`
+- `issued_by`
+- `issued_at`
+- `expires_at`
+- `status`
+
+A grant SHOULD be narrow by default. Include allowed action, resource pattern, parameter restrictions, trust boundary, session scope, revocation state, and evidence refs.
+
+## Redaction and retention obligations
+
+Policy decisions can carry data obligations:
+
+| Obligation | Meaning |
+| --- | --- |
+| `redact_before_display` | UI or runtime must transform sensitive content before display. |
+| `redact_before_export` | Exporter must transform or withhold content before artifact export. |
+| `retain_until` | Keep required data until a timestamp or retention event. |
+| `delete_after` | Delete or expire data after a timestamp or duration. |
+| `keep_audit_shape` | Preserve ids, hashes, and reason codes even when payload is removed. |
+| `withhold_raw_payload` | Reference private data without embedding it. |
+
+A retention decision SHOULD distinguish payload retention from audit metadata retention. Removing private bytes should not erase the existence of the decision.
+
+## Waivers
+
+A `waiver_record` is not a hidden allow. It is a separate fact that links to the original decision, names the waiving authority, gives a justification, limits the scope, expires, and states whether later review is required.
+
+Waivers SHOULD NOT remove denied or failed policy facts from traces. They should make the override explicit.
+
+## Policy trace
+
+A `policy_trace` SHOULD link:
+
+- input refs and normalized input hash.
+- engine refs, bundle refs, policy set ids, and policy versions.
+- matched rules and reason codes.
+- decisions, approvals, grants, waivers, redaction records, and retention records.
+- runtime event ids, task ids, tool call ids, model call ids, artifact ids, source ids, telemetry ids, and evidence pack ids.
+
+Traces SHOULD be compact. Large policy inputs, full documents, raw prompts, full tool outputs, and private data should remain in owning systems and be referenced.
+
+## Event envelope
+
+Agent Policy events MAY be transported through runtime streams, queues, logs, CloudEvents-like envelopes, or domain APIs. Every exported event SHOULD include:
+
+| Field | Requirement |
+| --- | --- |
+| `type` | Required event class. |
+| `event_id` | Required unique event id. |
+| `timestamp` | Required producer timestamp. |
+| `schema_version` | Required Agent Policy event schema version. |
+| `decision_id`, `approval_id`, `grant_id`, `waiver_id`, `trace_id` | Present when applicable. |
+| `subject` | Optional scoped actor. |
+| `payload` | Typed event payload or ref. |
+| `refs` | Optional runtime, telemetry, evidence, artifact, source, and peer refs. |
+
+## Event classes
+
+Compatible implementations SHOULD emit or export these event classes:
+
+- `policy.decision.created`
+- `policy.decision.updated`
+- `policy.approval.requested`
+- `policy.approval.responded`
+- `policy.grant.issued`
+- `policy.grant.revoked`
+- `policy.waiver.created`
+- `policy.redaction.required`
+- `policy.retention.required`
+- `policy.trace.linked`
+- `policy.warning`
+- `policy.error`
+
+## Fail-closed defaults
+
+Agent Policy recommends fail-closed behavior for `deny`, `ask`, `escalate`, and `indeterminate` unless a product explicitly declares a safer fallback. A runtime should not silently convert `not_applicable` or `indeterminate` into `allow` without a separate default policy.
+
+## Version compatibility
+
+Version `0.1.0` is a draft. Implementations SHOULD include `schema_version: "0.1.0"` and tolerate unknown fields. Producers SHOULD keep core field names stable and add optional fields rather than changing result semantics.
+
+
+# V0.1.4 changelog
+
+
+
+Source: https://limecloud.github.io/agentpolicy/en/versions/v0.1.4/changelog
+
+
+# v0.1.4 Changelog
+
+### Added
+
+- Adds Agent Runtime profile test cases in English and Simplified Chinese, covering runtime ids, risk scopes, decisions, ask/deny/allow mapping, grants, waivers, delegated approvals, redaction, and policy traces.
+
+### Changed
+
+- Aligns interoperability guidance with Agent Runtime `permission.*`, `action.*`, `sandbox.*`, `tool.*`, evidence, and UI refs.
+- Extends the Agent Policy event schema with optional runtime correlation fields such as `runtime_id`, `session_id`, `thread_id`, `turn_id`, `task_id`, `run_id`, `attempt_id`, `step_id`, `tool_call_id`, `action_id`, `evidence_id`, `context_id`, and `artifact_id`.

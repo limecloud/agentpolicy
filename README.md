@@ -13,6 +13,7 @@ It interoperates with runtime, UI, evidence, knowledge, tool, artifact, identity
 - Waiver records that preserve the original policy result.
 - Policy traces linking inputs, policy sets, matched rules, decisions, approvals, grants, waivers, runtime, telemetry, and evidence refs.
 - Public JSON Schemas and LLM-friendly `llms.txt` / `llms-full.txt` entrypoints.
+- Runtime profile test cases that verify policy decisions, approvals, grants, waivers, redaction, retention, and traces can be referenced by Agent Runtime without becoming execution facts.
 
 ## Documentation
 
@@ -24,6 +25,7 @@ It interoperates with runtime, UI, evidence, knowledge, tool, artifact, identity
 - [Permission grant](docs/en/contracts/permission-grant.md)
 - [Waiver record](docs/en/contracts/waiver-record.md)
 - [Policy trace](docs/en/contracts/policy-trace.md)
+- [Runtime profile test cases](docs/en/authoring/runtime-profile-test-cases.md)
 - [JSON Schemas](docs/en/reference/json-schemas.md)
 - [Research sources](docs/en/reference/research-sources.md)
 - [中文规范](docs/zh/specification.md)

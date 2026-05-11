@@ -36,4 +36,5 @@ features:
 - [策略模型](concepts/policy-model)
 - [最新规范](specification)
 - [实现快速开始](authoring/quickstart)
+- [Runtime Profile 测试用例](authoring/runtime-profile-test-cases)
 - [JSON Schemas](reference/json-schemas)
